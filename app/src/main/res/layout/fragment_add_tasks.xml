@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/add_task_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Add new Task"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/task_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/enter_your_task"
+        android:textColorHint="@color/hint_color"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/add_task_tv" />
+
+    <EditText
+        android:id="@+id/task_detail_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_task_detail"
+        android:textColorHint="@color/hint_color"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/task_edit_text" />
+
+    <TextView
+        android:id="@+id/add_task_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Select time"
+        android:textSize="19sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/task_detail_edit_text" />
+
+    <TextView
+        android:id="@+id/add_task_time_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/_12_00_am"
+        android:textColor="@color/hint_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/add_task_time"
+        app:layout_constraintStart_toEndOf="@id/add_task_time"
+        app:layout_constraintTop_toBottomOf="@id/task_detail_edit_text"
+        app:layout_constraintTop_toTopOf="@id/add_task_time" />
+
+    <Button
+        android:id="@+id/btn_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="Add Task"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_task_time_value" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
