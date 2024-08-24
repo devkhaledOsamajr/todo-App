@@ -1,15 +1,12 @@
-package com.example.todoapp.fragments
-
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.todoapp.CalendarDayWeekContainer
-import com.example.todoapp.R
+import com.example.todoapp.adapters.TaskAdapter
+import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.databinding.FragmentTasksBinding
 import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.atStartOfMonth
@@ -22,6 +19,7 @@ import java.util.Locale
 
 class fragmentTasks : Fragment() {
     lateinit var binding: FragmentTasksBinding
+    lateinit var adapter: TaskAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,7 +57,16 @@ class fragmentTasks : Fragment() {
             binding.calendarView.scrollToWeek(currentDate)
 
         }
+        getAllTasks()
+
+
     }
 
+    fun getAllTasks() {
 
+        val tasks = TaskDatabase.getInstance(requireContext()).getTaskDao().getAllTasks()
+        adapter = TaskAdapter(tasks)
+        binding.tasksRv.adapter = adapter
+
+    }
 }

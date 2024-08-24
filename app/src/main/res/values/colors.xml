@@ -7,4 +7,5 @@
     <color name="transaprent">#00FFFFFF</color>
     <color name="grey">#C8C9CB</color>
     <color name="hint_color">#A9A9A99C</color>
+    <color name="red">#ff5722</color>
 </resources>

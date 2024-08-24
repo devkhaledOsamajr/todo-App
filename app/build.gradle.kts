@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -47,6 +48,11 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.coordinatorlayout)
     implementation(libs.androidx.core)
+    implementation(libs.androidx.room.runtime)
+    implementation (libs.zerobranch.swipelayout)
+    implementation(libs.mediation.test.suite)
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation (libs.material)
     testImplementation(libs.junit)
     implementation(libs.calendar.view)
     androidTestImplementation(libs.androidx.junit)
