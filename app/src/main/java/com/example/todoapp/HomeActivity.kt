@@ -7,14 +7,15 @@ import com.example.todoapp.callbacks.OnTaskAddedListner
 import com.example.todoapp.databinding.ActivityHomeBinding
 import com.example.todoapp.fragments.AddTaskBottomSheet
 import com.example.todoapp.fragments.fragmentSetttings
+import com.example.todoapp.fragments.fragmentTasks
 
-import fragmentTasks
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
     lateinit var taskFragment: fragmentTasks
     lateinit var settingFragment: fragmentSetttings
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)

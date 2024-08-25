@@ -8,4 +8,7 @@
     <color name="grey">#C8C9CB</color>
     <color name="hint_color">#A9A9A99C</color>
     <color name="red">#ff5722</color>
+    <color name="green">#00ff00</color>
+    <color name="pink">#BFE3B5</color>
+    <color name="calemndar_bg">#1E201E</color>
 </resources>

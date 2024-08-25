@@ -9,7 +9,7 @@ import com.example.todoapp.database.dao.TaskDao
 import com.example.todoapp.database.model.Task
 import com.example.todoapp.database.typeConverter.DateConverter
 
-@Database(entities = [Task::class], version = 1)
+@Database(entities = [Task::class], version = 4)
 @TypeConverters(DateConverter::class)
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun getTaskDao(): TaskDao

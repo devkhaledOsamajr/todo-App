@@ -1,3 +1,5 @@
+package com.example.todoapp.fragments
+
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -66,7 +68,19 @@ class fragmentTasks : Fragment() {
 
         val tasks = TaskDatabase.getInstance(requireContext()).getTaskDao().getAllTasks()
         adapter = TaskAdapter(tasks)
+        adapter.onDeleteClick = { position, task ->
+            TaskDatabase.getInstance(requireContext()).getTaskDao().deleteTask(task)
+            adapter.deleteTask(task, position)
+
+        }
+        adapter.onDoneBtnClickListner = {position,task ->
+            task.isDone = !task.isDone
+            TaskDatabase.getInstance(requireContext()).getTaskDao().updateTask(task)
+            adapter.updateTask(task,position)
+        }
         binding.tasksRv.adapter = adapter
 
     }
+
+
 }

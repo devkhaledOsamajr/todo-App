@@ -5,91 +5,99 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.todoapp.callbacks.OnTaskAddedListner
 import com.example.todoapp.database.TaskDatabase
 import com.example.todoapp.database.model.Task
 import com.example.todoapp.databinding.FragmentAddTasksBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.util.Calendar
 
 class AddTaskBottomSheet : BottomSheetDialogFragment() {
     lateinit var binding: FragmentAddTasksBinding
     lateinit var calendar: Calendar
     var onTaskAddedListner: OnTaskAddedListner? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         binding = FragmentAddTasksBinding.inflate(layoutInflater)
         return binding.root
     }
 
+    private fun showTimePicker() {
+        val picker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_12H) // or TimeFormat.CLOCK_24H
+            .setHour(12) // Set default hour
+            .setMinute(0) // Set default minute
+            .setTitleText("Select Task Time")
+            .build()
+
+        picker.show(parentFragmentManager, "MATERIAL_TIME_PICKER")
+
+        picker.addOnPositiveButtonClickListener {
+            val selectedHour = picker.hour
+            val selectedMinute = picker.minute
+            val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+            binding.addTaskTimeValue.text = formattedTime
+        }
+    }
+
     private fun showDatePicker() {
         val datePickerDialog = DatePickerDialog(requireContext())
-        datePickerDialog.setOnDateSetListener { view, year, month, dayOfMonth ->
-
+        datePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             binding.addTaskTimeValue.text = "$dayOfMonth/${month + 1}/$year"
         }
-
-
         datePickerDialog.show()
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         calendar = Calendar.getInstance()
 
-
         binding.addTaskTime.setOnClickListener {
-            showDatePicker()
+            showTimePicker()
         }
 
         binding.btnAddTask.setOnClickListener {
-            if (validatefields()) {
-
+            if (validateFields()) {
                 val task = Task(
                     title = binding.taskEditText.text.toString(),
                     description = binding.taskDetailEditText.text.toString(),
                     date = calendar.time,
+                    time = binding.addTaskTimeValue.text.toString(),
                     isDone = false
                 )
                 TaskDatabase.getInstance(requireContext()).getTaskDao().insertTask(task)
                 onTaskAddedListner?.onTaskAdded()
                 dismiss()
-                Toast.makeText(requireContext(), "Task Added Successfully", Toast.LENGTH_SHORT)
-                    .show()
             }
-
-
         }
     }
 
+    private fun validateFields(): Boolean {
+        var isValid = true
 
-    private fun validatefields(): Boolean {
-        if (binding.taskEditText.text.isNullOrEmpty() || binding.taskEditText.text.isNullOrBlank()) {
+        if (binding.taskEditText.text.isNullOrEmpty()) {
             binding.taskEditText.error = "Required"
-            return false
-        } else
+            isValid = false
+        } else {
             binding.taskEditText.error = null
+        }
 
-        if (binding.taskDetailEditText.text.isNullOrEmpty() || binding.taskDetailEditText.text.isNullOrBlank()) {
+        if (binding.taskDetailEditText.text.isNullOrEmpty()) {
             binding.taskDetailEditText.error = "Required"
-            return false
-        } else
+            isValid = false
+        } else {
             binding.taskDetailEditText.error = null
+        }
 
-
-
-
-
-        return true
+        return isValid
     }
 }

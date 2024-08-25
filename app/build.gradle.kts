@@ -43,6 +43,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation (libs.material.v190)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
@@ -50,7 +51,6 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.room.runtime)
     implementation (libs.zerobranch.swipelayout)
-    implementation(libs.mediation.test.suite)
     kapt("androidx.room:room-compiler:2.6.1")
     implementation (libs.material)
     testImplementation(libs.junit)
